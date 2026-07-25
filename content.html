@@ -1,0 +1,58 @@
+<script src="https://webperlcdn.zero-g.net/v0.09-beta/webperl.js"></script>
+
+<script>
+function sync_in() {
+    document.getElementById("in").style.height = document.getElementById("out").style.height;
+}
+function sync_out() {
+    document.getElementById("out").style.height = document.getElementById("in").style.height;
+}
+
+function convert() {
+    FS.writeFile("text.md", document.getElementById("in").value);
+
+    console.log(script);
+    document.getElementById("out").value = Perl.eval(script);
+}
+</script>
+
+<table style="width: 100%">
+    <tr>
+        <th>Markdown</th>
+        <th>BBCode</th>
+    </tr>
+    <tr>
+        <td>
+            <textarea id="in" autocorrect="on" style="resize: vertical; width: 90%"># Some Markdown</textarea>
+        </td>
+        <td>
+            <textarea id="out" autocorrect="off" readonly style="resize: vertical; width: 90%"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button style="width: 100%" onclick="convert();">Convert!</button>
+        </td>
+    </tr>
+</table>
+
+<script>
+new ResizeObserver(sync_out).observe(document.getElementById("in"));
+new ResizeObserver(sync_in).observe(document.getElementById("out"));
+
+Perl.init(function () {
+    FS.writeFile("text.md", document.getElementById("in").value);
+
+    var xml = new XMLHttpRequest();
+    xml.open("GET", "md2bb.pl/md2bb.pl", false);
+    xml.send();
+
+    if(xml.status == 200){
+        script = xml.responseText;
+        script = "@ARGV = ('text.md');\nmy $text = '';\nclose STDOUT;\nopen STDOUT, '>', \\$text;\n" + script + "\nreturn $text;";
+        console.log(script);
+        Perl.start([]);
+        document.getElementById("out").value = Perl.eval(script);
+    }
+});
+</script>

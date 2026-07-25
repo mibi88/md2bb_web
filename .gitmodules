@@ -1,0 +1,6 @@
+[submodule "md2bb.pl"]
+	path = md2bb.pl
+	url = https://github.com/mibi88/md2bb.pl
+[submodule "mibi88.github.io"]
+	path = mibi88.github.io
+	url = https://github.com/mibi88/mibi88.github.io
