@@ -9,7 +9,6 @@ index.html:
 test: index.html
 	mkdir -p build/md2bb_web
 	cp index.html build/md2bb_web
-	cp md2bb.js build/md2bb_web
 	cp -r mibi88.github.io/* build
 	cp -r md2bb.pl build/md2bb_web
 
