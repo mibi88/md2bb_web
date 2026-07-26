@@ -6,12 +6,12 @@ build: index.html md2bb.pl/md2bb.pl build/webperl.js
 	cp index.html build/index.html
 
 build/webperl.js:
-	wget https://github.com/haukex/webperl/releases/download/v0.09-beta/webperl_prebuilt_v0.09-beta.zip -O build/webperl.zip
-	unzip build/webperl.zip -d build/
+	curl -Lo webperl.zip https://github.com/haukex/webperl/releases/download/v0.09-beta/webperl_prebuilt_v0.09-beta.zip
+	unzip webperl.zip -d build/
 	mv build/webperl_prebuilt_v0.09-beta/webperl.js \
 	build/webperl_prebuilt_v0.09-beta/emperl.* build/
 	rm -r build/webperl_prebuilt_v0.09-beta
-	rm build/webperl.zip
+	rm webperl.zip
 
 index.html: content.html mibi88.github.io/simple_template.html
 	sed "s/{current_year}/`date +%Y`/g;s/{title}/md2bb.pl/g" \
