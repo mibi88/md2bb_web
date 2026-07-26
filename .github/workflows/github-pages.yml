@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        submodules: recursive
+        with:
+          submodules: recursive
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
